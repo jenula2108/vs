@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- &display=swap -->
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="css/stile.css" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>js</title>
+</head>
+
+<body>
+  <div class="wrapper">
+    <header class="header"></header>
+    <main id="main" class="main__container">
+
+      <h2>
+        Задача 6. Дано список спортсменів. Потрібно сформувати список тих, які будуть брати участь у змаганні. При цьому
+        є два стовпці. В одному відображені всі спортсмени, в іншому – список тих, хто був вибраний. При натисканні на
+        зелену стрілку спортсмен переміщається у список для змагань. При натисканні на червону стрілку спортсмен
+        переміщається у загальний список.
+      </h2>
+      <label class="label"> введіть ім`я спортсмена
+        <input class="inputtext" type="text">
+      </label>
+      <button class="button">додати</button>
+      <section class="wrap">
+        <article class="wrap__ollsporsmens wrap__column">
+          <p>усі спортсмени</p>
+        </article>
+        <article class="wrap__checedsporsmens wrap__column">
+          <p>обрані спортсмени</p>
+        </article>
+      </section>
+      <script>
+        class InputSporsmens {
+          constructor() {
+            this.nameSportsmen
+          }
+          changeColumnBtn() {
+            this.checedSporsmensList = document.querySelector(`.wrap__checedsporsmens`)
+            let ollTegButtonPush = document.querySelectorAll(`.buttonpush`)
+            console.log(ollTegButtonPush);
+            for (const button of ollTegButtonPush) {
+              button.onclick = () => {
+                if (button.closest(`.wrap__ollsporsmens`)) {
+                  this.checedSporsmensList.append(button.closest(`.wrap__sportsmen`))
+                  button.children[0].setAttribute(`src`, `img/redPik.jfif`)
+                }
+                else {
+                  this.ollsporsmensList.append(button.closest(`.wrap__sportsmen`))
+                  button.children[0].setAttribute(`src`, `img/greenPik.jfif`)
+                }
+              }
+            }
+          }
+          addSportsmen() {
+            let tegConteiner = document.createElement(`div`)
+            tegConteiner.classList.add(`wrap__sportsmen`)
+            console.log(tegConteiner);
+            let tegSportsmen = document.createElement(`div`)
+            tegSportsmen.innerText = this.nameSportsmen
+
+            this.tegButtonPush = document.createElement(`button`)
+            this.tegButtonPush.classList.add(`buttonpush`)
+
+            this.tegImage = document.createElement(`img`)
+            this.tegImage.setAttribute(`src`, `img/greenPik.jfif`)
+
+            this.tegButtonPush.append(this.tegImage)
+            tegConteiner.append(tegSportsmen)
+            tegConteiner.append(this.tegButtonPush)
+            this.ollsporsmensList = document.querySelector(`.wrap__ollsporsmens`)
+            console.log(this.ollsporsmensList);
+            this.ollsporsmensList.append(tegConteiner)
+
+          }
+          setSporsmen() {
+            let inputSport = document.querySelector(`.inputtext`)
+            let pushSportsmen = document.querySelector(`.button`)
+            pushSportsmen.onclick = () => {
+              this.nameSportsmen = inputSport.value
+              console.log(this.nameSportsmen);
+              this.addSportsmen()
+              this.changeColumnBtn()
+            }
+
+          }
+
+        }
+        const inputSporsmens1 = new InputSporsmens();
+        inputSporsmens1.setSporsmen()
+      </script>
+    </main>
+    <footer class="footer">
+    </footer>
+  </div>
+</body>
+
+</html>
+</script>
+</main>
+<footer class="footer"></footer>
+</div>
+</body>
+
+</html>

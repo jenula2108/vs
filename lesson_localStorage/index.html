@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- &display=swap -->
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="css/stile.css" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>js</title>
+</head>
+
+<body>
+  <div class="wrapper">
+    <header class="header"></header>
+    <main id="#main" class="main__container">
+      <h2>
+      </h2>
+      <label for="">введіть ім'я користувача
+        <input type="text" id="#username">
+      </label>
+      <button id="#aduser" class="button">додати користувача</button>
+      <label for="">виберіть користувача
+        <select name="" id="selectuser">
+          <option value="виберіть користувача">виберіть користувача</option>
+        </select>
+      </label>
+      <div>
+        <label for="">введіть ім'я
+          <input type="text" id="#nameperson">
+        </label>
+        <button id="#adperson" class="button">додати ім'я </button>
+      </div>
+      <div class="wrap" id="wrap">
+        <div class="wrap__block notselect" id="notselect">
+        </div>
+        <div class="wrap__block select" id="select">
+
+        </div>
+      </div>
+      <script>
+        class Users {
+          constructor(nameList) {
+            this.nameList = nameList
+            this.usersList = {}
+          }
+          criateUser() {
+            document.getElementById('#aduser').onclick = this.aduser.bind(this)
+          }
+          aduser() {
+            let userName = document.getElementById('#username').value
+            if (/\w/ig.test(userName)) {
+              let newUser = document.createElement('option')
+              newUser.value = userName
+              newUser.innerText = userName
+              document.getElementById('selectuser').append(newUser)
+              this.usersList[userName] = {}
+              this.saveLocal()
+            }
+          }
+          renderUsers() {
+            let users = JSON.parse(localStorage.getItem(this.nameList))
+            console.log(users);
+            for (const key in users) {
+              let newUser = document.createElement('option')
+              newUser.value = key
+              newUser.innerText = key
+              document.getElementById('selectuser').append(newUser)
+            }
+          }
+          saveLocal() {
+            localStorage.setItem(this.nameList, JSON.stringify(this.usersList))
+          }
+          getLocal() {
+            return JSON.parse(localStorage.getItem(this.nameList))
+          }
+          renderPersonage(name, conteiner) {
+            conteiner ??= 'notselect'
+            let newPersonageDiv = document.createElement('div')
+            newPersonageDiv.className = 'wrap__personagewrap'
+
+            let personageName = document.createElement('div')
+            personageName.innerText = name
+            newPersonageDiv.append(personageName)
+
+            let buttonsDiv = document.createElement('div')
+            newPersonageDiv.append(buttonsDiv)
+
+            let buttonChecked = document.createElement('button')
+            buttonChecked.className = 'button buttonchose'
+            buttonChecked.innerText = 'вибрати'
+            buttonChecked.setAttribute('name', name)
+
+            buttonsDiv.append(buttonChecked)
+            this.buttonChecked = buttonChecked
+            document.getElementById(conteiner).append(newPersonageDiv)
+            this.newPersonageDiv = newPersonageDiv
+          }
+          changeUser() {
+            document.getElementById('selectuser').onchange = (() => {
+              let parentElementNs = document.getElementById('notselect');
+              while (parentElementNs.firstChild) {
+                parentElementNs.removeChild(parentElementNs.firstChild);
+              }
+              let parentElementS = document.getElementById('select');
+              while (parentElementS.firstChild) {
+                parentElementS.removeChild(parentElementS.firstChild);
+              }
+              this.usersList = this.getLocal()
+              console.log(this.usersList[document.getElementById('selectuser').value]);
+              for (const key in this.usersList[document.getElementById('selectuser').value]) {
+                this.renderPersonage(key, this.usersList[document.getElementById('selectuser').value][key])
+              }
+              this.checPersonage()
+            })
+
+          }
+          namePersonage() {
+            document.getElementById('#adperson').onclick = this.setPersonage.bind(this)
+          }
+          setPersonage() {
+            if (document.getElementById('selectuser').value !== 'виберіть користувача') {
+              let namePersonage = document.getElementById('#nameperson').value
+              if (/\w/ig.test(namePersonage)) {
+                this.renderPersonage(namePersonage)
+              }
+              this.usersList = JSON.parse(localStorage.getItem(this.nameList))
+              this.usersList[document.getElementById('selectuser').value][namePersonage] = 'notselect'
+
+              this.saveLocal()
+            }
+            this.checPersonage()
+
+          }
+          checPersonage() {
+            let btnChose = document.querySelectorAll('.buttonchose')
+            this.usersList = this.getLocal()
+            for (const btn of btnChose) {
+              btn.onclick = (() => {
+                if (btn.closest('#notselect')) {
+                  document.getElementById('select').append(btn.closest('.wrap__personagewrap'))
+                  this.usersList[document.getElementById('selectuser').value][btn.getAttribute('name')] = 'select'
+                  this.saveLocal()
+                }
+                else {
+                  document.getElementById('notselect').append(btn.closest('.wrap__personagewrap'))
+                  this.usersList[document.getElementById('selectuser').value][btn.getAttribute('name')] = 'notselect'
+                  this.saveLocal()
+                }
+              })
+            }
+
+            // wrap.onclick = function (event) {
+            //   if (event.target.tagName === 'BUTTON') {
+            //     let btn = event.target.tagName
+            //     console.log(btn.closest('#notselect'));
+            // btn.closest('#notselect') ?
+            //   document.getElementById('select').append(btn.closest('.wrap__personagewrap')) :
+            //   document.getElementById('notselect').append(btn.closest('.wrap__personagewrap'))
+            //   }
+            // }
+          }
+        }
+        const user1 = new Users('users');
+        user1.criateUser()
+        user1.namePersonage()
+        // user1.checPersonage()
+        user1.renderUsers()
+        user1.changeUser()
+      </script>
+    </main>
+    <footer class="footer">
+      <img src="/img/greenPik.jfif" alt="">
+    </footer>
+  </div>
+</body>
+
+</html>
+</script>
+</main>
+<footer class="footer">
+  <div>hello!</div>
+  <div>hello!</div>
+
+</footer>
+</div>
+</body>
+
+</html>

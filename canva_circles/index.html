@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- &display=swap -->
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="css/stile.css" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>js</title>
+</head>
+
+<body>
+  <div class="wrapper">
+    <header class="header"></header>
+    <main id="#main" class="main__container">
+      <h2>
+        canvas
+      </h2>
+      <form action="">
+        <input id="color" type="color">
+        <input id="width" type="number">
+      </form>
+      <canvas class="canvas" id="cns" width="800px" height="400px">
+      </canvas>
+      <script>
+        let canvas = document.getElementById('cns')
+        let ctx = canvas.getContext('2d')
+        let pi = Math.PI
+        ctx.strokeStyle = 'red'
+        ctx.lineWidth = 10
+        ctx.fillStyle = 'green'
+        ctx.arc(200, 200, 100, 0, pi)
+        ctx.stroke()
+        ctx.fill()
+        ctx.clearRect(0, 0, 800, 400)
+
+
+        canvas.onmousedown = function (event) {
+          let onmousedownX = event.offsetX
+          let onmousedownY = event.offsetY
+          canvas.onmousemove = function (event) {
+            let x = event.offsetX
+            let y = event.offsetY
+            // ctx.clearRect(0,0,800,400)
+            ctx.beginPath()
+            let radius = Math.pow(Math.pow(x - onmousedownX, 2) + Math.pow(y - onmousedownY, 2), 0.5)
+            ctx.strokeStyle = 'red'
+            ctx.lineWidth = 10
+            ctx.fillStyle = 'green'
+            ctx.arc(onmousedownX, onmousedownY, radius, 0, pi * 2)
+            ctx.stroke()
+            ctx.fill()
+            ctx.closePath()
+          }
+          canvas.onmouseup = function (event) {
+            canvas.onmousemove = null
+          }
+        }
+      </script>
+    </main>
+    <footer class="footer">
+    </footer>
+  </div>
+</body>
+
+</html>
+</script>
+</main>
+<footer class="footer">
+  <div></div>
+</footer>
+</div>
+</body>
+
+</html>

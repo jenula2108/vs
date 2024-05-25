@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- &display=swap -->
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="css/stile.css" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>js</title>
+</head>
+
+<body>
+  <div class="wrapper">
+    <header class="header"></header>
+    <main id="#main" class="main__container">
+      <h2>
+        canvas
+        <p>малюємо лівою кнопкою миші</p>
+        <p>затераємо правою кнопкою миші</p>
+      </h2>
+      <form action="">
+        <input id="color" type="color"> колір
+        <input id="width" type="number" >жирність
+      </form>
+      <canvas class="canvas" id="cns" width="800px" height="400px">
+      </canvas>
+      <script>
+        let canvas=document.getElementById('cns')
+        let ctx= canvas.getContext('2d')
+        
+        // ctx.fillStyle='red'
+        // ctx.fillRect(100, 50, 150, 75)
+
+        // ctx.fillStyle='black'
+        // ctx.fillRect(150, 100, 150, 75)
+
+        // ctx.clearRect(0,0,400,200)
+        
+        // ctx.beginPath()
+        // ctx.strokeStyle='red'
+        // ctx.lineWidth='10'
+        // ctx.rect(20,15,100,50)
+        // ctx.stroke()
+        // ctx.fillStyle='green'
+        // ctx.fill()
+        // ctx.clearRect(0,0,400,200)
+
+        // ctx.beginPath()
+        // ctx.lineWidth='2'
+        // ctx.strokeStyle='green'
+        // ctx.moveTo(50,100)
+        // ctx.lineTo(150,150)
+        // ctx.stroke()
+        // ctx.lineTo(250,50)
+        // ctx.stroke()
+
+        // ctx.beginPath()
+        // ctx.lineWidth='3'
+        // ctx.strokeStyle='orange'
+        // ctx.moveTo(200,140)
+        // ctx.lineTo(220,10)
+        // ctx.stroke()
+        // ctx.clearRect(0,0,400,200)
+        
+        // ctx.beginPath()
+        // ctx.moveTo(50,50);
+        // ctx.lineTo(100,150);
+        // ctx.lineTo(250,50);
+        // ctx.lineWidth='5'
+        // ctx.strokeStyle='green'
+        // ctx.closePath()
+        // ctx.stroke()
+        // ctx.clearRect(0,0,400,200)
+
+        let color=document.getElementById('color')
+        color.onchange=function(){
+          ctx.fillStyle=color.value
+        }
+        let wdh
+        let width=document.getElementById('width')
+        width.onchange=function(){
+           wdh=width.value
+        }
+        canvas.addEventListener('mousedown',function (event) {
+          canvas.onmousemove=function(event){
+            if(event.buttons===1){
+        let x=event.offsetX
+            let y=event.offsetY
+            ctx.fillRect(x-wdh/2,y-wdh/2,wdh,wdh) 
+            }
+            if(event.buttons===2){
+              let x=event.offsetX
+            let y=event.offsetY
+            ctx.clearRect(x-wdh/2,y-wdh/2,wdh*2,wdh*2)
+            }
+          }
+          canvas.onmouseup=function(event){
+            canvas.onmousemove=null
+          }
+        })
+        // canvas.onmousedown=function(event){
+        //   canvas.onmousemove=function(event){
+        //     let x=event.offsetX
+        //     let y=event.offsetY
+        //     ctx.fillRect(x-wdh/2,y-wdh/2,wdh,wdh)   
+        //   }
+        //   canvas.onmouseup=function(event){
+        //     canvas.onmousemove=null
+        //   }
+        // }
+        // canvas.addEventListener('contextmenu', function(event) {
+        //   canvas.onmousemove=function(event){
+        //     let x=event.offsetX
+        //     let y=event.offsetY
+        //     ctx.clearRect(x-wdh/2,y-wdh/2,wdh,wdh)
+        //   }
+        // })
+      </script>
+    </main>
+    <footer class="footer">
+      <div></div>
+      <div></div>
+          <div></div>
+      <div></div>
+    </footer>
+  </div>
+</body>
+
+</html>
+</script>
+</main>
+<footer class="footer"></footer>
+</div>
+</body>
+
+</html>

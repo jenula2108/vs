@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- &display=swap -->
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="css/stile.css" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>js</title>
+</head>
+
+<body>
+  <div class="wrapper">
+    <header class="header"></header>
+    <main id="#main" class="main__container">
+      <h2>
+        // Задача 12. Зберігати у пам’яті список справ, які користувачу треба виконати (зберігати у localStorage).
+        // Періодично випадковим чином вибирати якусь з справ і виводити користувачу (з використанням confirm).
+        // Якщо користувач натискає на «Ок», то видаляти цю задачу.
+      </h2>
+      <label for="">
+        задача
+        <input id="todo" type="test" placeholder="">
+      </label>
+      <label for="">
+        час коли виконати
+        <input id="then" type="test" placeholder="">
+      </label>
+      <button id="check" class="buttonfid">до дати задачу</button>
+      <button id="confirm" class="buttonfid">GO</button>
+      <script>
+        class ToDoList {
+          constructor(nameList) {
+            this.nameList = nameList
+            this.list = this.readList()
+          }
+          readList() {
+            let list
+            if (localStorage.getItem(this.nameList)) {
+              list = JSON.parse(localStorage.getItem(this.nameList))
+            }
+            else list = []
+            return list
+          }
+          adList() {
+            let list = this.list
+            document.getElementById(`check`).onclick = (() => {
+              list.push({
+                task: `${document.getElementById('todo').value}`,
+                then: `${document.getElementById('then').value}`
+              })
+              this.saveList(list)
+            })
+          }
+          saveList(list) {
+            localStorage.setItem(this.nameList, JSON.stringify(list))
+          }
+          remuveList(remuvTask) {
+            let list = JSON.parse(localStorage.getItem(this.nameList))
+            let newList = list.filter(el => el.task !== remuvTask)
+            this.saveList(newList)
+          }
+        }
+        class Confirm {
+          constructor(nameLocalData) {
+            this.listData = new ToDoList(nameLocalData)
+          }
+          goConfirm() {
+            let list
+            this.listData.adList()
+            document.getElementById(`confirm`).onclick = (() => {
+              for (const el of this.listData.list) {
+                if (confirm(el.task)) {
+                  this.listData.remuveList(el.task)
+
+                }
+                list = JSON.parse(localStorage.getItem(this.listData.nameList))
+                console.log(list);
+              }
+            })
+          }
+        }
+        const conf1 = new Confirm('doList');
+        conf1.goConfirm()
+      </script>
+    </main>
+    <footer class="footer">
+    </footer>
+  </div>
+</body>
+
+</html>
+</script>
+</main>
+<footer class="footer"></footer>
+</div>
+</body>
+
+</html>
