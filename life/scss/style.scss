@@ -1,0 +1,12 @@
+.blok {
+    font-style: 24px;
+}
+.block {
+
+    &__item {
+        width: 200px;
+        height: 40px;
+        background-color: #c01313;
+    }
+
+}
